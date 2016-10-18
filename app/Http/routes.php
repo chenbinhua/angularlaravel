@@ -10,9 +10,20 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+function rq($key=null,$default=null)
+{
+	if(!$key) return Request::all();
+	return Request::get($key,$default);
+}
+
 function user_ins()
 {
 	return new App\User;
+}
+
+function question_ins()
+{
+	return new App\Question;
 }
 
 Route::get('/', function () {
@@ -39,4 +50,8 @@ Route::any('test',function()
 	dd(user_ins()->is_logged_in());
 });
 
+Route::any('api/question/add',function()
+{
+	return question_ins()->add();
+});
 
